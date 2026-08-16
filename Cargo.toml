@@ -1,0 +1,17 @@
+[package]
+name = "ice-candidate-parser"
+version = "0.1.0"
+edition = "2021"
+description = "Parse WebRTC ICE candidate strings (RFC 5245 / 8839) into structured fields."
+license = "MIT"
+repository = "https://github.com/zero-0002/ice-candidate-parser"
+keywords = ["webrtc", "ice", "candidate", "sdp", "networking"]
+categories = ["parser-implementations", "network-programming"]
+
+[[bin]]
+name = "ice-candidate-parser"
+path = "src/main.rs"
+
+[lib]
+name = "ice_candidate_parser"
+path = "src/lib.rs"

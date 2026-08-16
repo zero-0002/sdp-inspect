@@ -1,29 +1,31 @@
-# getstats-report
+# ice-candidate-parser
 
-A tiny TypeScript CLI that turns a WebRTC `getStats()` JSON dump into a Markdown
-table you can paste straight into an issue.
+A small Rust library + CLI that parses WebRTC ICE candidate strings
+(RFC 5245 / 8839) into structured fields.
 
-## Usage
+## Library
+
+```rust
+use ice_candidate_parser::Candidate;
+
+let c: Candidate = "candidate:1 1 udp 2130706431 1.2.3.4 55000 typ host"
+    .parse()
+    .unwrap();
+assert_eq!(c.port, 55000);
+```
+
+## CLI
 
 ```bash
-npm install
-npm run build
-node dist/cli.js getstats.json
-# or, without building:
-npm start -- getstats.json
+cargo run -- candidates.txt
+# or
+echo "candidate:1 1 udp 2130706431 1.2.3.4 55000 typ host" | cargo run
 ```
 
-Capture a dump in the browser:
+## Test
 
-```js
-const stats = await pc.getStats();
-console.log(JSON.stringify([...stats.values()]));
+```bash
+cargo test
 ```
-
-## Output
-
-| Dir | Kind | Codec | KiB | Loss % | Jitter (ms) | FPS |
-| --- | --- | --- | ---: | ---: | ---: | ---: |
-| inbound | video | VP8 | 1024.0 | 0.12 | 3.4 | 30 |
 
 MIT licensed.
