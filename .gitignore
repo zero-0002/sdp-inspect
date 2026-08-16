@@ -1,2 +1,4 @@
-/target
-Cargo.lock
+/sdp-inspect
+/sdp-inspect.exe
+*.test
+*.out

@@ -1,31 +1,26 @@
-# ice-candidate-parser
+# sdp-inspect
 
-A small Rust library + CLI that parses WebRTC ICE candidate strings
-(RFC 5245 / 8839) into structured fields.
+A small Go CLI that parses an SDP offer/answer (RFC 4566) and prints its media
+sections, directions and negotiated codecs — handy when debugging WebRTC
+negotiation.
 
-## Library
-
-```rust
-use ice_candidate_parser::Candidate;
-
-let c: Candidate = "candidate:1 1 udp 2130706431 1.2.3.4 55000 typ host"
-    .parse()
-    .unwrap();
-assert_eq!(c.port, 55000);
-```
-
-## CLI
+## Build & run
 
 ```bash
-cargo run -- candidates.txt
+go build ./...
+./sdp-inspect offer.sdp
 # or
-echo "candidate:1 1 udp 2130706431 1.2.3.4 55000 typ host" | cargo run
+cat answer.sdp | go run .
 ```
 
-## Test
+## Example output
 
-```bash
-cargo test
+```
+Session: "-" (v=0)
+  m0: audio sendrecv [UDP/TLS/RTP/SAVPF] mid=0
+      pt 111 opus/48000/2
+  m1: video sendrecv [UDP/TLS/RTP/SAVPF] mid=1
+      pt 96  VP8/90000
 ```
 
 MIT licensed.
